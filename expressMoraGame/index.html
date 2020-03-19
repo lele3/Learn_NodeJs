@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>石头剪刀布游戏</title>
+  <style>
+    #output {
+      width: 600px;
+      height: 400px;
+      background-color: #eee;
+    }
+
+    .button-wrapper {
+      display: flex;
+      width: 600px;
+    }
+
+    #rock {
+      width: 50px;
+      height: 30px;
+      margin: 0 auto;
+    }
+
+    #scissors {
+      width: 50px;
+      height: 30px;
+      margin: 0 auto;
+    }
+
+    #paper {
+      width: 50px;
+      height: 30px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="output"></div>
+  <div class="button-wrapper">
+    <button id="rock">石头</button>
+    <button id="scissors">剪刀</button>
+    <button id="paper">布</button>
+  </div>
+</body>
+<script type="text/javascript">
+  const buttons = {
+    rock: document.getElementById('rock'),
+    scissors: document.getElementById('scissors'),
+    paper: document.getElementById('paper')
+  }
+  const output = document.getElementById('output')
+  Object.keys(buttons).forEach(key => {
+    buttons[key].addEventListener('click', function () {
+      fetch(`http://localhost:3500/game?action=${key}`)
+        .then(res => {
+          return res.text()
+        })
+        .then(text => {
+          output.innerHTML += text + '<br/>'
+        })
+    })
+  })
+</script>
+
+</html>
